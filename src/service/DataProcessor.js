@@ -17,12 +17,12 @@ export class DataProcessor {
         let message=this.checkInputs(city, startDate, endDate, hourFrom, hourTo);
         if(message==""){
             const alldata= await this.getData(this.#cities[city].latitude,this.#cities[city].longitude)
-        const alldatesNtime=[];
         const timeArray=alldata.hourly.time;
-        const dateNTimeArray=timeArray.map((datetime,index)=>{
-            alldatesNtime[index]={date:datetime.slice(0,datetime.indexOf("T")),hour:+datetime.slice(datetime.indexOf("T")+1,datetime.indexOf(":")),temperature:alldata.hourly.temperature_2m[index]}
-            return alldatesNtime[index];
-         },alldatesNtime);
+        const dateNTimeArray=timeArray.reduce((res,datetime,index)=>{
+            res[index]={date:datetime.slice(0,datetime.indexOf("T")),hour:+datetime.slice(datetime.indexOf("T")+1,datetime.indexOf(":")),temperature:alldata.hourly.temperature_2m[index]}
+            
+            return res;
+         },[]);
           ress=dateNTimeArray.filter( data =>{
             if(data.date==startDate||data.date==endDate){
                 if(data.hour>=hourFrom && data.hour<=hourTo){
