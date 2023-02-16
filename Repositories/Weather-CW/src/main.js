@@ -3,9 +3,10 @@ import { checkHours, DataProcessor } from "./service/DataProcessor.js";
 import { DataForm } from "./ui/data-form.js";
 import { Table } from "./ui/table.js";
 const schema=[
-    {columnName:'Date',fieldName:'date'}
-    {columnName:'Hour',fieldName:'hour'}
-    {columnName:'City',fieldName:'city'}
+    {columnName:'Date',fieldName:'date'},
+    {columnName:'Hour',fieldName:'hour'},
+    {columnName:'City',fieldName:'city'},
+    {columnName:'Temperature',fieldName:'temperature'}
 
 ]
     
@@ -16,12 +17,19 @@ const dataProcessor = new DataProcessor(weatherConfig.url, weatherConfig.cities)
 //     console.log(data)
 // }
 // displayTemperatures();
+const dataprocessor= new DataProcessor(weatherConfig.url,weatherConfig.cities);
 const dataForm = new DataForm("form-section", weatherConfig.maxDays);
 const weatherTable=new Table("table-form","Weather Table",schema);
 dataForm.addHandler(async (data)=>{
     let res=checkHours(data.hourFrom,data.hourTo);
     if(!res){
-        const 
+        const tableDataArray=await dataProcessor.getTemperatureData(data.city,data.dateFrom,data.dateTo,data.timeFrom,data.timeTo);
+        tableDataArray.forEach(obj => {
+            return weatherTable.addRow(obj);
+            
+        });
+        return res;
+
 
     }
 })
