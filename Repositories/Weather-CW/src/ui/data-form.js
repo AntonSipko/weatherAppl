@@ -7,7 +7,11 @@ const DATA_SELECTORS_ID="selectors-form-id"
 const DATA_FORM_ID = "data-form-id";
 const DATE_FROM_ID = "date-from-id";
 const DATE_TO_ID = "date-to-id"
+const TABLE_ID="table-form"
+const DATE_INPUTS_ID="date-inputs"
 export class DataForm {
+    #datesElements;
+    #tableElements;
     #allInputsElements;
     #timeFromElement;
     #timeToElement;
@@ -25,9 +29,20 @@ export class DataForm {
         this.#citiesElement=document.getElementById(CITY_SELECT);
        this.#timeFromElement=document.getElementById(TIME_FROM_SELECT)
        this.#timeToElement=document.getElementById(TIME_TO_SELECT)
+       this.#tableElements=document.getElementById(TABLE_ID)
        this.#allInputsElements=document.querySelectorAll("#data-form-id [name]")
+       this.#datesElements=document.getElementById(DATE_INPUTS_ID);
        this.#setTime()
        this.#setCities()
+       this.#formElement.addEventListener('reset',(event)=>{
+        event.preventDefault();
+        this.#formElement.reset();
+        this.#tableElements.style.display="none";
+        this.#setCities();
+        this.#setTime();
+
+       })
+       
 
     }
     #fillForm(parentElement) {
@@ -38,11 +53,9 @@ export class DataForm {
             <label>Select Hour to</label>
             <input type="date" name="dateTo" id="${DATE_TO_ID}" required>
             </div>
-            <div id="submit-reset-buttons">
-            <button type="submit">Submit</button>
-            <button type="reset">Reset</button>
-            </div>
+           
         <div id="${DATA_SELECTORS_ID}">
+        
             <label>Select City</label>
          <select name="city" id="${CITY_SELECT}" name="city-selector" >
          <option value ="kkk">kkk</option>
@@ -53,9 +66,13 @@ export class DataForm {
          </select>
          <label>Select Time To</label>
          <select id="${TIME_TO_SELECT}" name="timeTo">
-         
-
+        </select>
          </div>
+         <div id="submit-reset-buttons">
+         <button id="submit-button" type="submit">Submit</button>
+         <button id="reset-button" type="reset">Reset</button>
+         </div>
+         
          
          </form>`
 
@@ -72,6 +89,7 @@ export class DataForm {
         this.#dateToElement.min = minDateStr;
         this.#dateFromElement.max = maxDateStr;
         this.#dateToElement.max = maxDateStr;
+       
 
     }
     #setCities(){
@@ -106,6 +124,7 @@ export class DataForm {
                 alert(message)
             }else{
                 this.#formElement.reset();
+                this.#tableElements.style.display="block";
 
             }
 

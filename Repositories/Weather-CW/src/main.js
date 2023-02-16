@@ -18,7 +18,7 @@ const dataProcessor = new DataProcessor(weatherConfig.url, weatherConfig.cities)
 // displayTemperatures();
 const dataprocessor= new DataProcessor(weatherConfig.url,weatherConfig.cities);
 const dataForm = new DataForm("form-section", weatherConfig.maxDays);
-const weatherTable=new Table("table-form",`Weather Table for ${dataForm.city}`,schema);
+const weatherTable=new Table("table-form",`Weather Table for chosen city`,schema);
 dataForm.addHandler(async (data)=>{
     let res=checkHours(+data.timeFrom,+data.timeTo);
     if(!res){
