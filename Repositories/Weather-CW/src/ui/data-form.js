@@ -21,7 +21,7 @@ export class DataForm {
         this.#formElement = document.getElementById(DATA_FORM_ID);
         this.#dateToElement = document.getElementById(DATE_TO_ID);
         this.#dateFromElement = document.getElementById(DATE_FROM_ID);
-        // this.#setMinMaxDates(maxDays);
+        // this.#setMinMaxDates(weatherConfig.maxDays);//function written in class isnt working
         this.#citiesElement=document.getElementById(CITY_SELECT);
        this.#timeFromElement=document.getElementById(TIME_FROM_SELECT)
        this.#timeToElement=document.getElementById(TIME_TO_SELECT)
@@ -33,10 +33,15 @@ export class DataForm {
     #fillForm(parentElement) {
         parentElement.innerHTML = `<form id="${DATA_FORM_ID}">
         <div id="date-inputs">
-            <input type="date" name="dateFrom" id="${DATE_FROM_ID} required">
+        <label>Select Hour from</label>
+            <input type="date" name="dateFrom" id="${DATE_FROM_ID}" required>
+            <label>Select Hour to</label>
             <input type="date" name="dateTo" id="${DATE_TO_ID}" required>
+            </div>
+            <div id="submit-reset-buttons">
             <button type="submit">Submit</button>
             <button type="reset">Reset</button>
+            </div>
         <div id="${DATA_SELECTORS_ID}">
             <label>Select City</label>
          <select name="city" id="${CITY_SELECT}" name="city-selector" >
@@ -48,7 +53,10 @@ export class DataForm {
          </select>
          <label>Select Time To</label>
          <select id="${TIME_TO_SELECT}" name="timeTo">
+         
+
          </div>
+         
          </form>`
 
           
@@ -98,6 +106,7 @@ export class DataForm {
                 alert(message)
             }else{
                 this.#formElement.reset();
+
             }
 
         })
