@@ -28,6 +28,7 @@ export class DataProcessor {
 }
 function processRawData(rawData, hourFrom, hourTo) {
     
+    
     const timeArray = getHoursElements(rawData.hourly.time, hourFrom, hourTo);
     const temperatureArray =getHoursElements(rawData.hourly.temperature_2m, hourFrom, hourTo); ;
     return timeArray.map((t, index) => {

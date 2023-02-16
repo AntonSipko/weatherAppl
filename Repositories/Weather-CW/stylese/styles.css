@@ -1,0 +1,24 @@
+
+
+  table, th, td {
+      border: 1px solid black;
+    }
+    table.center {
+      margin-left: auto; 
+      margin-right: auto;
+    } 
+    th, td {
+      padding: 1vw;
+    }
+    .table-logo {
+      text-align: center;
+    }
+
+
+    @media (min-width: 560px) {
+      .form-select-group {
+        /* justify-content: space-evenly; */
+        font-size: 1.3em;
+        width: 50vw
+      }
+     

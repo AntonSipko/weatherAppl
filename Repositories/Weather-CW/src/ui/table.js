@@ -1,11 +1,14 @@
 export class Table {
     //data.id
     //data[obj.fieldName]
+    
+    #parentElement
     #schema //array of objects {columnName: <string>, fieldName: <string>}
     #tbodyElement
     constructor(parentId, tableName, schema) {
         const parentElement = document.getElementById(parentId);
         this.#schema = schema;
+        this.#parentElement=parentElement;
         if (!parentElement) {
             throw `wrong parentId ${parentId}`
         }
@@ -21,9 +24,15 @@ export class Table {
             </tbody>
         </table>`
         this.#tbodyElement = document.getElementById(tableName);
+        hideTable(parentElement);
+        
+
     }
     addRow(object){
         this.#tbodyElement.innerHTML += getRow(object, this.#schema);
+    }
+    showTable(){
+        this.#parentElement.style.display="block"
     }
     
 }
@@ -35,6 +44,9 @@ function getRow(data, schema) {
 }
 function getTds(data, schema) {
     return schema.map(obj => `<td>${data[obj.fieldName]}</td>`).join('')
+}
+function hideTable(parentElement){
+    parentElement.style.display="none"
 }
 
 
