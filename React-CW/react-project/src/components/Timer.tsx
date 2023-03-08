@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from "react"
-export const Timer: React.FC = () => {
-    const styles: React.CSSProperties = { backgroundColor: "lightblue", fontSize: "2em" }
-    const titleStyles: React.CSSProperties = { color: "blue" }
-    const titleStyles2: React.CSSProperties = { color: "red" }
-    setTimeout(tic, 1000);
-    const [time, setTime] = React.useState(new Date())
-    const [color, setColor] = React.useState("blue")
+import React, {useState, useEffect} from "react";
+import timeZones from "../time-zones";
+type Props = {
+    cityCountry:string;
+}
+export const Timer:React.FC<Props> = ({cityCountry}) => {
+const styles: React.CSSProperties = {backgroundColor:"lightblue",
+fontSize: "2em"};
 
-    function tic() {
-        setTime(new Date())
-    }
+const [time, setTime] = useState<Date>(new Date());
 
-    useEffect(()=> {
-        const timeoutId = setTimeout(() => {
-            setColor(currentColor => currentColor === "blue" ? "red" : "blue");
-        }, 1000);
-        return () => clearTimeout(timeoutId);
+function tic() {
+    setTime(new Date());
+    
+}
 
-
-    },[color]);
-
-
+useEffect(() => {
+    const interval = setInterval(tic, 2000);
+    console.log("useEffect");
+    return () => clearInterval(interval);
+}, [])
 
     return <div>
-        <h2 style={{ color: color }}>Current Time</h2>
-        <p style={styles}>{time.toLocaleTimeString()}</p>
+        <h2 >Current Time in {cityCountry}</h2>
+        <p style={styles}>{time.toLocaleTimeString(undefined, {timeZone:timeZones[3].name})}</p>
     </div>
 }

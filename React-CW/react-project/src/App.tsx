@@ -1,10 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 import { Timer } from './components/Timer';
 
 function App() {
-return <Timer/>
+  return <div>
+    <Timer cityCountry="London"/>
+    <Timer cityCountry="Vladivostok"/>
+    <Timer cityCountry="Israel"/>
+    <Timer cityCountry="Toronto"/>
+    </div>
 }
 
 export default App;
