@@ -13,15 +13,30 @@ function tic() {
     setTime(new Date());
     
 }
+function getTimezone(){
+    const cityIndex=timeZones.findIndex(obj=>{
+        const objString=JSON.stringify(obj);
+        if(objString.includes(cityCountry)){
+            return obj;
+        }
+    
+    })
+    return cityIndex==-1? 196:cityIndex;
+
+
+}
+
+
+
 
 useEffect(() => {
-    const interval = setInterval(tic, 2000);
+    const interval = setInterval(tic, 1000);
     console.log("useEffect");
     return () => clearInterval(interval);
 }, [])
 
     return <div>
         <h2 >Current Time in {cityCountry}</h2>
-        <p style={styles}>{time.toLocaleTimeString(undefined, {timeZone:timeZones[3].name})}</p>
+        <p style={styles}>{time.toLocaleTimeString(undefined, {timeZone:timeZones[getTimezone()].name})}</p>
     </div>
 }
