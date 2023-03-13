@@ -30,20 +30,26 @@ useEffect(() => {
 }, [])
 function getTimeZone(cityCountry:string): string | undefined{
     const index = timeZones.findIndex(tz => JSON.stringify(tz).includes(cityCountry));
-    return index < 0 ? undefined : timeZones[index].name
+    return index === -1 ? undefined : timeZones[index].name;
 } 
 
 
 function submit(value: string ):string {
     let res:string="";
+    if(value==""||value==undefined){
+        res="Enter the zone"
+    }else{
+        res="";
     if(getTimeZone(value)==undefined ){
         res = `This ${value} does not exists`
     }
     else{
-         setTimezone(value);
+        res="";
+        setTimezone(getTimeZone(value));
         setCityCountry(value);
         
     }
+}
     return res;
 
 

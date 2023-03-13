@@ -17,10 +17,10 @@ export const Input: React.FC<Props> = ({submitFn, placeHolder, buttonName}) => {
        const message=submitFn(inputElement.current!.value)
        if(message==""){
         inputElement.current!.value=""
-       }else{
+       }
         setMessage(message);
 
-       }
+       
             
 
         
