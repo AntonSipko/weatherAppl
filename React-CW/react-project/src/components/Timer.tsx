@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import timeZones from "../time-zones";
+import { Input } from "./input";
 type Props = {
     cityCountry:string;
 }
@@ -8,35 +9,51 @@ const styles: React.CSSProperties = {backgroundColor:"lightblue",
 fontSize: "2em"};
 
 const [time, setTime] = useState<Date>(new Date());
+const [timeZone,setTimezone] = useState<string|undefined>(getTimeZone(cityCountry));
+const [citycountry,setCityCountry]=useState<String>(cityCountry);
+
 
 function tic() {
     setTime(new Date());
     
 }
-function getTimezone(){
-    const cityIndex=timeZones.findIndex(obj=>{
-        const objString=JSON.stringify(obj);
-        if(objString.includes(cityCountry)){
-            return obj;
-        }
-    
-    })
-    return cityIndex==-1? 196:cityIndex;
-
-
-}
-
-
-
+useEffect(
+ () => {
+    setTimezone(getTimeZone(cityCountry));
+ }, [cityCountry]
+)
 
 useEffect(() => {
-    const interval = setInterval(tic, 1000);
+    const interval = setInterval(tic, 2000);
     console.log("useEffect");
     return () => clearInterval(interval);
 }, [])
+function getTimeZone(cityCountry:string): string | undefined{
+    const index = timeZones.findIndex(tz => JSON.stringify(tz).includes(cityCountry));
+    return index < 0 ? undefined : timeZones[index].name
+} 
 
+
+function submit(value: string ):string {
+    let res:string="";
+    if(getTimeZone(value)==undefined ){
+        res = `This ${value} does not exists`
+    }
+    else{
+         setTimezone(value);
+        setCityCountry(value);
+        
+    }
+    return res;
+
+
+
+
+}
     return <div>
-        <h2 >Current Time in {cityCountry}</h2>
-        <p style={styles}>{time.toLocaleTimeString(undefined, {timeZone:timeZones[getTimezone()].name})}</p>
-    </div>
+        <h2 >Current Time in {citycountry}</h2>
+        <p style={styles}>{time.toLocaleTimeString(undefined,
+             {timeZone: timeZone})}</p>
+             <Input submitFn={submit} buttonName="Check" placeHolder="Enter the zone" />
+                </div>
 }
