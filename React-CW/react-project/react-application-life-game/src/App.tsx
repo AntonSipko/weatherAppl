@@ -18,11 +18,12 @@ const navigators:string[]=["Home","Customers","Orders","ShoppingCart","Products"
 const products:string[]=["Dairy","Bread"]
 
 function App() {
-     const navigate = useNavigate();
-  useEffect(() => {
-    navigate('/');
-  }, [navigate]);
-  
+     // const navigate = useNavigate();
+     // useEffect(() => {
+     //   navigate('/');
+     // }, [navigate]);
+     
+
      return <BrowserRouter>
           <Routes>
                
