@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { useEffect } from "react"
+import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import './navigators.css'
 type Props = {
     navigatorArr: string[]
@@ -6,6 +7,8 @@ type Props = {
 }
 
 export const Navigators: React.FC<Props> = ({ navigatorArr }) => {
+ 
+
     return <div>
         <nav>
             <ul className="navigator-list">
