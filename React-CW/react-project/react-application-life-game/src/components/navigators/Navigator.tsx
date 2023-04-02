@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { NavLink, Outlet, useNavigate } from "react-router-dom"
+import { BrowserRouter, NavLink, Outlet, Routes, useNavigate } from "react-router-dom"
 import './navigators.css'
 type Props = {
     navigatorArr: string[]
@@ -7,6 +7,10 @@ type Props = {
 }
 
 export const Navigators: React.FC<Props> = ({ navigatorArr }) => {
+    const navigate = useNavigate();
+      useEffect(() => {
+        navigate('/');
+      },[BrowserRouter] );
  
 
     return <div>
