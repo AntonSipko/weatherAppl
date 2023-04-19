@@ -1,4 +1,4 @@
 import ProductsService from "../service/ProductsService";
-import { ProductsServiseFirebase } from "../service/ProductsServiceFirebase";
+import { ProductsServiceFirebase } from "../service/ProductsServiceFirebase";
 
-export const ProductsServise:ProductsService =new ProductsServiseFirebase();
+export const productsService: ProductsService = new ProductsServiceFirebase();

@@ -13,7 +13,7 @@ export const Login: React.FC = () => {
             dispatch(authActions.login(email));
             dispatch(codeActions.set("OK")) 
         } catch (error) {
-            dispatch(codeActions.set("Wrong username or password,try again"))
+            dispatch(codeActions.set("Wrong Credentials"))
         }
         
     }
