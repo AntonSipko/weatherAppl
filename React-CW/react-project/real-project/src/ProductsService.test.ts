@@ -22,7 +22,7 @@ allCategoriesWithDublicates.forEach((cat=>{
 
 
 test ("random category exists", () => {
-    productsService.isCategoryExist(getRandomElement(allCategories))
+    return productsService.isCategoryExist(getRandomElement(allCategories))
     .then(res => expect(res).toBeTruthy());
 })
 // test ("category kukureku doesn't exist", () => {
