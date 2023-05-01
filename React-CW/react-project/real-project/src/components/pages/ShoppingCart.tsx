@@ -21,7 +21,10 @@ export const ShoppingCart: React.FC = () => {
             const cost=count*product.cost
             return {...product,count,cost}
         })
-        return cartProducts;
+        return cartProducts.filter(p=>{
+            return p.count>0;
+
+        });
      }
      const totalCost = tableData.reduce((acc, product) => acc + product.cost, 0);
      
