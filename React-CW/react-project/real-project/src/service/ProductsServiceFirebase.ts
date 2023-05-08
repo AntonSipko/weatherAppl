@@ -14,7 +14,11 @@ export class ProductsServiceFirebase implements ProductsService {
     productsCollection = collection(getFirestore(firebaseApp), PRODUCTS_COLLECTION);
     categoriesCollection = collection(getFirestore(firebaseApp), CATEGORIES_COLLECTION);
     async addProduct(product: ProductType): Promise<void> {
-        product.id = getRandomNumber(100000, 999999).toString();
+        if(!product.id){
+            product.id = getRandomNumber(100000, 999999).toString();
+
+        }
+        
         await setDoc(doc(this.productsCollection, product.id), product);
     }
     async addCategory(category: CategoryType): Promise<void> {
@@ -55,6 +59,10 @@ export class ProductsServiceFirebase implements ProductsService {
     getProducts():Observable<ProductType[]>{
         return collectionData(this.productsCollection ) as Observable<ProductType[]>;
 
+    }
+    getCategories(): Observable<CategoryType[]> {
+        return collectionData(this.categoriesCollection) as Observable<CategoryType[]>
+        
     }
 
 }
