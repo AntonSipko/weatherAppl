@@ -21,6 +21,8 @@ import { productsActions } from './redux/productsSlice';
 import { Subscription } from 'rxjs';
 import { ordersService } from './config/orders-service-config';
 import { shoppingActions } from './redux/shoppingSlice';
+import { CategoryType } from './model/CategoryType';
+import { categoriesActions } from './redux/categoriesSlice';
 
 function App() {
      const authUser = useSelector<any, string>(state=>state.auth.authUser);
@@ -52,6 +54,18 @@ useEffect (() => {
      })
      return () => subscription.unsubscribe()
 }, []);
+useEffect (() => {
+     const subscription = productsService.getCategories()
+     .subscribe({
+          next: (categories: CategoryType[]) => {
+               const categoriesNames=categories.map(cat=>cat.name)
+               console.log(categoriesNames)
+               dispatch(categoriesActions.setCategories(categoriesNames))
+          }
+     })
+     return () => subscription.unsubscribe()
+}, []);
+
 useEffect(() => {
      let subscription: Subscription;
      if (authUser != '' && !authUser.includes("admin")) {
